@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import "./index.css";
 import "../node_modules/font-awesome/css/font-awesome.min.css";
 
@@ -47,7 +48,12 @@ const Time = () => <span className="time">3h ago</span>;
 const ReplyButton = () => <i className="fa fa-reply reply-button" />;
 
 const RetweetButton = () => <i className="fa fa-retweet retweet-button" />;
-const LikeButton = () => <i className="fa fa-heart like-button" />;
+const LikeButton = ({ count }) => (
+  <span className="like-button">
+    <i className="fa fa-heart like-button" />
+    {count > 0 && <span className="like-count"> {count} </span>}
+  </span>
+);
 const MoreOptionsButton = () => (
   <i className="fa fa-ellipsis-h more-options-button" />
 );
@@ -62,6 +68,17 @@ var testTweet = {
   likes: 2,
   retweets: 0,
   timestamp: "2016-07-30 1:23:2",
+};
+
+//proptypes
+LikeButton.propTypes = {
+  count: PropTypes.number,
+};
+NameWithHandle.propTypes = {
+  author: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    handle: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 ReactDOM.render(<Tweet tweet={testTweet} />, document.querySelector("#root"));
